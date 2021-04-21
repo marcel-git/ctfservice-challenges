@@ -30,17 +30,19 @@ public class ChallengeController implements IChallengeController {
     }
 
     @Override
-    public ResponseEntity<String> createPage(Challenges challenge) {
-        return service.createPage(challenge);
+    public ResponseEntity<String> createChallenge(Challenges challenge) {
+        return service.createChallenge(challenge);
     }
 
     @Override
-    public ResponseEntity<Challenges> updatePage(String path, Challenges page) {
+    public ResponseEntity<Challenges> updateChallenge(int id, Challenges challenge) {
+        service.updateChallenge(id, challenge);
         return null;
     }
 
     @Override
-    public ResponseEntity<String> deletePage(String path) {
+    public ResponseEntity<String> deleteChallenge(int id) {
+        service.deleteChallenge(id);
         return null;
     }
 }

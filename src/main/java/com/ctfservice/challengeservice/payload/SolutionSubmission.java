@@ -1,5 +1,8 @@
 package com.ctfservice.challengeservice.payload;
 
+/**
+ * Custom payload object
+ */
 public class SolutionSubmission {
 
     private int challengeID;

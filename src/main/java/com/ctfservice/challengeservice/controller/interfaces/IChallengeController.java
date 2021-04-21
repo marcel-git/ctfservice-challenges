@@ -16,12 +16,12 @@ public interface IChallengeController {
     Optional<Challenges> getById(@PathVariable int id);
 
     @PostMapping
-    public ResponseEntity<String> createPage(@RequestBody Challenges challenge);
+    ResponseEntity<String> createChallenge(@RequestBody Challenges challenge);
 
-    @PutMapping("/{path}")
-    public ResponseEntity<Challenges> updatePage(@PathVariable String path, @RequestBody Challenges page);
+    @PutMapping("/{id}")
+    ResponseEntity<Challenges> updateChallenge(@PathVariable int id, @RequestBody Challenges challenge);
 
-    @DeleteMapping("/{path}")
-    public ResponseEntity<String> deletePage(@PathVariable String path);
+    @DeleteMapping("/{id}")
+    ResponseEntity<String> deleteChallenge(@PathVariable int id);
 
 }

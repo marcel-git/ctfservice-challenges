@@ -43,7 +43,7 @@ public class ChallengeService {
      * @param challenge
      * @return HTTP.ok if the challenge fulfilled the criteria or HTTP.badRequest if either the name or the solution is already present.
      */
-    public ResponseEntity<String> createPage(Challenges challenge) {
+    public ResponseEntity<String> createChallenge(Challenges challenge) {
         if(challengeRepository.existsByName(challenge.getName())){
             return ResponseEntity.badRequest().body("Error: Name is already taken");
         }
@@ -54,14 +54,36 @@ public class ChallengeService {
         return ResponseEntity.ok("Challenge created successfully");
     }
 
-    public ResponseEntity<Challenges> updatePage(String path, Challenges page) {
-        return null;
+    /**
+     * Updates the data for the challenge
+     * @param id of the challenge to be updated
+     * @param challenge contains the new data
+     */
+    public void updateChallenge(int id, Challenges challenge) {
+        Optional<Challenges> _oldChallenge = challengeRepository.findById(id);
+        if(_oldChallenge.isPresent()){
+            Challenges oldChallenge = _oldChallenge.get();
+            oldChallenge.setName(challenge.getName());
+            oldChallenge.setText(challenge.getText());
+            oldChallenge.setPoints(challenge.getPoints());
+            //TODO maybe update the flag. At the moment not possible because of it not being send.
+            challengeRepository.save(oldChallenge);
+        }
     }
 
-    public ResponseEntity<String> deletePage(String path) {
-        return null;
+    /**
+     * Deletes the challenge
+     * @param id
+     */
+    public void deleteChallenge(int id) {
+       challengeRepository.deleteById(id);
     }
 
+    /**
+     * Verifies the provided flag by comparing it to the corresponding flag int the database
+     * @param submission contains the flag and id
+     * @return
+     */
     public ResponseEntity<String> verifyFlag(SolutionSubmission submission) {
         String flag = submission.getSolution();
         int id = submission.getChallengeID();
